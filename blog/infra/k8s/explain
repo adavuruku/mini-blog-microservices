@@ -1,0 +1,81 @@
+clustre (deployment) -> can have one or more pods -> pods can have one or more instance (replica) of same image
+
+#  creating manual pods
+apiVersion: v1
+kind: Pod # the object kind is pod
+metadata:
+  name: posts # name of the pod
+spec: # specification -> the list of configuration option for the pod to create
+  containers: # the only require entry here
+    - name: posts # give a name to the container - ypu csn have many container : note the pod and container name is not compulsory to have thesame name
+      image: posts:0.0.1 # the image for the container -. not withoout version docker add latest as version so its posts:latest 
+
+
+# creating automatic pods - using deployment
+# this brings deployments advantages to the pods
+
+# advantage of using deployment
+# 1. recreate pod if it fail or kind of dissapear or get deleted.
+# 2. for every new deployment of your application, it create two instance of the pod 1: the pod holding the previous version and 2: the pod for the new vrsion. it the new version is then stable it drops the existing version and replace with the new version. (keeping your application available at all time)
+
+apiVersion: apps/v1 # the path to save the pods
+kind: Deployment # deployment file for the pods
+metadata:
+  name: posts-depl #name of the deployment
+spec: #sppec of the deployment
+  replicas: 1 # number of pods to be created for this deployment 
+  selector:
+  # define which template to use in creating the pod -> match all the labels with app: posts
+    matchLabels:
+      app: posts
+  template: #you can define many templates 
+    metadata:
+      labels:
+        app: posts #match the lable you want the dep to manage
+    spec: #spec of the template
+      containers:
+        - name: posts
+          image: posts:0.0.1
+
+
+# specifying version number
+# prepare a new version of your app
+# deploy to docker with new vesion
+# come to your deployment file and the new version image
+# image: posts:0.0.1 to image: posts:0.0.2
+# deploy again, you will see that kub is keeping both service for some time
+
+# pusgh to docker hub and run deployment
+# also its better not to have version for our image and make kub also pull the latest image
+# changing image: posts:0.0.2 to image: posts:latest or image: posts -> docker assume is the latest
+
+# to push to docker hub
+# tag ur image like this [dockerid]/image name
+# docker tag [existing image name] YOUR_DOCKERHUB_NAME/[choice of image name]
+# e.g docker tag firstimage YOUR_DOCKERHUB_NAME/firstimage
+# 
+# or you give the tag when deploying the docker
+
+# services
+# types of services
+# 1. cluster ip -> communication between the pods in a clusters
+# 2. node port-> made pod accessible outside the cluster (used for dev purposes)
+# Load balancer -> makes a pod accessible from outside the cluster. the right way to expose a pod to outside world
+# 4. external name -> redirect an in cluster request to a cname url..
+
+apiVersion: v1 # version of service
+kind: Service # config type is service
+metadata: # config info
+  name: posts-srv # name of service
+spec: # specification
+  type: NodePort # port type [cluster/ load baancer/ nodeport/ external na,e] without type the default ClusterIP
+  selector:
+      app: posts # create this service for deployment(pod) labeled posts [check our deployment file]
+  ports:
+    - name: posts
+      protocol: TCP # network protocol
+      port: 4000 # NodePort -> the port withing the cluster for this NodePort
+      targetPort: 4000 # Appliction port note that it can be different from NodePort
+
+--- #indicate you want to add more config
+

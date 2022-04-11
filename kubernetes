@@ -1,0 +1,96 @@
+kubernetes is use in running containers together
+cluster set of different maachine (node) all manage by a program called master(configuation file on how kub runs the programs)
+
+it mk communication easy nd straight f, also hving duplicate service and scaling them
+
+create many instances of the images/container
+
+look for the image if its not available it try to get from the hub
+
+pod -> 
+
+container -> 
+
+deployment -> it recreates an image, whenver the pods/container get destroy (always availlable)
+
+service -> handle networking among the containers (whenever kub receives a request it uses the service to decide which service to route to)
+
+cluster:- a collection of nodes + master (config) to manage them
+
+node : - a virtual machine that will run our containers
+
+pod:- more or less a running container, technically, a pod can run multiple containers (we wont do this)
+
+deployment: monitors a set of pods, make sure they are running and restart them if they crash
+
+service: provides an easy to remember url to access a running container
+
+k8s -> kubernetes
+
+kubectl apply -f posts.yml
+
+kubectl get pods
+
+kubectl exec -it  [pods_name][cmd]
+
+kubectl logs [pod_name]
+
+kubectl delete pod [pod_name]
+
+kubectl apply -f [config file name]
+
+kubectl describe pod [pod_name]
+
+kubectl rollout restart deployment [depl_name]
+
+kubectl get services
+
+kubectl get deployments
+
+# set env variable for kubernetes
+generic and other type of secret key
+
+
+
+kubectl create secret generic [secret key name] --from-literal=[key]=[value]
+
+kubectl create secret generic jwt-secret --from-literal=jwt=asdff
+
+kubectl get secrets
+
+env:
+    - name: jwt
+        valuefrom:
+            secretKeyRef
+                name:jwt-secret
+                key:jwt
+skaffold dev
+
+docker logout
+docker login
+sherifadavuruku
+onize2019
+docker push [image name]
+
+https://stackoverflow.com/questions/41984399/denied-requested-access-to-the-resource-is-denied-docker
+
+build an image
+push to docker hub
+create a deployment file
+run deployment
+create a service
+run service
+
+kubectl rollout restart deployment posts-depl
+
+
+# load balancer provides a single point of endtry to all our services
+# get service into a single pods
+
+
+# to do ip mapping on localhost
+c:\\windows\\system32\Drivers\etc\hosts -> windows
+
+/etc/hosts -> mac
+
+add -> 127.0.0.1 posts.com

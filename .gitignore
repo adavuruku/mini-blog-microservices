@@ -39,6 +39,13 @@ build/Release
 
 # Dependency directories
 node_modules/
+blog/posts/node_modules/
+blog/comments/node_modules/
+blog/client/node_modules/
+blog/event-bus/node_modules/
+blog/query/node_modules/
+blog/moderation/node_modules/
+node_modules/
 jspm_packages/
 
 # TypeScript v1 declaration files

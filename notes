@@ -1,0 +1,15 @@
+Comments Server Listening on 4001
+
+Event Bus Sever Listening on 4005
+
+Moderation Server Listening on 4003
+
+Post Server Listening on 4000
+
+Query Server Listening on 4002
+
+
+sherifadavuruku/comments
+sherifadavuruku/moderation
+
+sherifadavuruku/query

@@ -1,0 +1,48 @@
+Database:
+First, I appreciate the DB Structure design already, but we need an improvement on the system, though this might come with a cost of data conversion.
+So I suggest bellow:
+1. we take some of the recent records we have on the system, convert them to our db requirements and use it for our development testing.
+
+2. once the entire system is ready, we can decide to move the records to the new system. we need to set up a proper plan that will allow us to run both new system and old system in parallel
+
+We need this conversion as the current db is not well structured in terms of data types, relationship.
+We can handle this some of the data type issues from our but it will speak bad about the company professionalism whenever we decide to expose the api outside the company.
+
+people will complain and we definitely still have to make this changes.
+
+Also, its a coding overdue for developer to miss logic with data type, this can cause alot of logical blunt.
+
+for example: field that require just two logical options of yes/no true/false, should not take 1/0, etc
+
+we can have a session to draft this database structure together with Kimana. by identifying the entities and see how they really relate logically
+
+Micro Services
+
+Admin/Support -> [Database]
+use restful apis to manage every other services
+
+A. Cedant/insurance services [Database] -> include the entity shared with B
+
+Reinsurance/ Service [Database] -> include the entity shared with A
+
+Messaging Que [Database] -> include the enity A and B shared
+
+every action on A shared Entiy will be pushed to 
+
+Kafka service as brokers
+
+kubernetic to keep our kafka service available
+
+minikube 
+
+containerized each of the service
+
+docker image to scafold the entire application
+
+kubernetes is use in running containers together
+cluster set of different maachine (node) all manage by a program called master(configuation file on how kub runs the programs)
+
+it mk communication easy nd straight f, also hving duplicate service and scaling them
+
+
+
